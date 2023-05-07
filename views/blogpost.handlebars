@@ -1,0 +1,43 @@
+{{!-- content section --}}
+  {{#section "content"}}
+    <div class="container">
+      <h2>{{blogPost.title}}</h2>
+      <p class="text-muted">{{blogPost.createdAt}}</p>
+      <hr>
+      <p>{{blogPost.content}}</p>
+    </div>
+
+    {{!-- comments section --}}
+    <div class="container mt-4">
+      {{#if comments}}
+        <h3>Comments:</h3>
+        {{#each comments}}
+          <div class="card mb-2">
+            <div class="card-body">
+              <h5 class="card-title">{{user.username}}</h5>
+              <p class="card-text">{{content}}</p>
+              <p class="text-muted">{{createdAt}}</p>
+            </div>
+          </div>
+        {{/each}}
+      {{else}}
+        <p>No comments yet.</p>
+      {{/if}}
+    </div>
+
+    {{!-- comment form section --}}
+    {{#if isAuthenticated}}
+      <div class="container mt-4">
+        <h3>Leave a Comment:</h3>
+        <form id="comment-form">
+          <div class="form-group">
+            <textarea class="form-control" id="comment-text" rows="3" placeholder="Write your comment here..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    {{/if}}
+
+  {{/section}}
+
+

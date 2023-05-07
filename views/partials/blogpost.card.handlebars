@@ -1,0 +1,13 @@
+<div class="card mb-4">
+    <div class="card-header">
+      <h2>{{title}}</h2>
+      <p class="card-text">
+        <small class="text-muted">Posted on {{moment createdAt format="MMMM D, YYYY h:mm A"}}</small>
+      </p>
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{content}}</p>
+      <a href="/blogpost/{{id}}" class="btn btn-primary">Read More &rarr;</a>
+    </div>
+  </div>
+  
