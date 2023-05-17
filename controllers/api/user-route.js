@@ -31,29 +31,36 @@ router.post('/login', async (req, res) => {
 });
 
 // CREATE a new user
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
-    const userData = await User.create({
+    // Generate salt and hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    // Create a new user with the hashed password
+    const user = await User.create({
       username: req.body.username,
-      password: await bcrypt.hash(req.body.password, 10),
+      password: hashedPassword
     });
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
+    // Set the user ID on the session
+    req.session.user_id = user.id;
 
-      res.status(200).json(userData);
-    });
+    // Redirect to the dashboard
+    res.redirect('/dashboard');
   } catch (err) {
-    res.status(400).json(err);
+    console.log(err);
+    res.status(500).json(err);
   }
 });
+
 
 // LOGOUT a user
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
+      res.redirect('/home');
     });
   } else {
     res.status(404).end();

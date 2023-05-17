@@ -1,0 +1,17 @@
+.main-nav {
+    height: 3em;
+}
+
+.custom-brn {
+    background-color: #59340B;
+    font-size: 18px;
+  }
+
+.custom-teal {
+    background-color: #F0FFDA ;
+    color: #59340B;
+}
+
+.text-teal {
+    color: #F0FFDA ;
+}

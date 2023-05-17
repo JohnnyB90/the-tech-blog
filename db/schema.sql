@@ -28,3 +28,4 @@ CREATE TABLE Comment (
   FOREIGN KEY (userId) REFERENCES User(id),
   FOREIGN KEY (blogPostId) REFERENCES BlogPost(id)
 );
+
