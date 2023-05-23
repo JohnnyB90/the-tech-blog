@@ -9,7 +9,7 @@ router.get('/login', (req, res) => {
 });
 
 // GET sign-up page
-router.get('/sign-up', (req, res) => {
+router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
@@ -86,6 +86,26 @@ router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
     const blogPost = blogPostData.get({ plain: true });
 
     res.render('edit-post', { ...blogPost, loggedIn: req.session.loggedIn });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// GET Dashboard
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+    const blogPostData = await BlogPost.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
+    });
+
+    const blogPosts = blogPostData.map((blogPost) => blogPost.get({ plain: true }));
+
+    res.render('dashboard', {
+      blogPosts,
+      logged_in: true
+    });
   } catch (err) {
     res.status(500).json(err);
   }

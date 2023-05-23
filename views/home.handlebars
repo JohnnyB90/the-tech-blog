@@ -1,10 +1,3 @@
-<!-- This is the mainpage where the posts will displayed -->
-<div>
-    {{#each blogPosts}}
-    <div class="border">
-      <h3><a href="/blogpost/{{this.id}}">{{this.title}}</a></h3>
-      <p>{{this.content}}</p>
-      <p>Written by {{this.User.username}} on {{this.createdAt}}</p>
-    </div>
-    {{/each}}
-</div>
+{{#each blogPosts as |post|}}
+    {{> blogpost.card post}}
+{{/each}}

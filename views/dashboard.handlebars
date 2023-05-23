@@ -1,0 +1,7 @@
+<div class="dashboard">
+    <h2>Your Blog Posts</h2>
+    {{#each userBlogPosts as |post|}}
+        {{> blogpost.card post}}
+    {{/each}}
+    <a href="/dashboard/new">Create New Post</a>
+</div>

@@ -1,0 +1,11 @@
+<div class="comments">
+    {{#each postComments as |comment|}}
+        <p>{{comment.content}} - {{comment.User.username}}</p>
+    {{/each}}
+    {{#if loggedIn}}
+        <form action="/blogpost/{{post.id}}/comment" method="post">
+            <textarea name="content" placeholder="Leave a comment"></textarea>
+            <input type="submit" value="Submit">
+        </form>
+    {{/if}}
+</div>
