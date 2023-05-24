@@ -14,14 +14,12 @@ const loginFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        document.location.replace('/blogpost');
+        document.location.replace('/dashboard');
       } else {
         alert(response.statusText);
       }
     }
   };
   
-  document
-    .querySelector('.login-form')
-    .addEventListener('#login-btn', loginFormHandler);
+  document.querySelector('.login-form').addEventListener('#login', loginFormHandler);
   
