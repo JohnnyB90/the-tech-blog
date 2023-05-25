@@ -12,10 +12,13 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -35,6 +38,7 @@ User.init(
     timestamps: false,
     underscored: true,
     modelName: 'user',
+    freezeTableName: true
   }
 );
 

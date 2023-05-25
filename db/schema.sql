@@ -1,31 +1,3 @@
 DROP DATABASE IF EXISTS blog_db;
 CREATE DATABASE blog_db;
-USE blog_db;
-
-CREATE TABLE User (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  username VARCHAR(255),
-  password VARCHAR(255)
-);
-
-CREATE TABLE BlogPost (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  title VARCHAR(255),
-  content TEXT,
-  createdAt DATETIME,
-  updatedAt DATETIME,
-  userId INTEGER,
-  FOREIGN KEY (userId) REFERENCES User(id)
-);
-
-CREATE TABLE Comment (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  content TEXT,
-  createdAt DATETIME,
-  updatedAt DATETIME,
-  userId INTEGER,
-  blogPostId INTEGER,
-  FOREIGN KEY (userId) REFERENCES User(id),
-  FOREIGN KEY (blogPostId) REFERENCES BlogPost(id)
-);
 

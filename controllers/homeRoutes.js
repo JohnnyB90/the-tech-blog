@@ -25,7 +25,7 @@ router.get('/logout', (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const blogPostData = await BlogPost.findAll({
-      include: [{ model: User, attributes: ['username'] }],
+      include: [{ model: User, attributes: ['email'] }],
     });
     const blogPosts = blogPostData.map((blogPost) =>
       blogPost.get({ plain: true })
@@ -44,9 +44,9 @@ router.get('/blog/:id', async (req, res) => {
       include: [
         {
           model: Comment,
-          include: [{ model: User, attributes: ['username'] }],
+          include: [{ model: User, attributes: ['email'] }],
         },
-        { model: User, attributes: ['username'] },
+        { model: User, attributes: ['email'] },
       ],
     });
 
@@ -75,7 +75,7 @@ router.get('/dashboard/new', withAuth, (req, res) => {
 router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
   try {
     const blogPostData = await BlogPost.findByPk(req.params.id, {
-      include: [{ model: User, attributes: ['username'] }],
+      include: [{ model: User, attributes: ['email'] }],
     });
 
     if (!blogPostData) {

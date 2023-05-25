@@ -4,7 +4,7 @@ const User = require('./User');
 const BlogPost = require('./Blogpost');
 const Comments = require('./Comments');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize('database', 'email', 'password', {
   host: 'localhost',
   dialect: 'mysql',
 });
