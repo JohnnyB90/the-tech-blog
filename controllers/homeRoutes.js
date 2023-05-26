@@ -30,12 +30,13 @@ router.get('/', async (req, res) => {
     const blogPosts = blogPostData.map((blogPost) =>
       blogPost.get({ plain: true })
     );
-    res.render('home', { blogPosts, logged_In: req.session.loggedIn });
+    res.render('home', { blogPosts, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
     console.log(err);
   }
 });
+
 
 // GET a single blog post by id
 router.get('/blog/:id', async (req, res) => {

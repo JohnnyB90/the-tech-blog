@@ -1,7 +1,8 @@
-<div class="dashboard">
+<!-- dashboard.handlebars -->
+<div class="dashboard d-flex justify-content-center">
     <h2>Your Blog Posts</h2>
     {{#each userBlogPosts as |post|}}
-        {{> blogpost.card post}}
+        {{> post-card}}
     {{/each}}
-    <a href="/dashboard/new">Create New Post</a>
+    <a href="/dashboard/new" class="text-teal mt-5">Create New Post</a>
 </div>
