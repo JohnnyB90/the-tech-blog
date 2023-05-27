@@ -1,5 +1,6 @@
 // server.js
 const express = require('express');
+const moment = require('moment');
 const session = require('express-session');
 const routes = require('./controllers');
 const exphbs = require('express-handlebars');
@@ -14,7 +15,16 @@ const PORT = process.env.PORT || 3001;
 
 
 //init handlebars
-const hbs = exphbs.create();
+const hbs = exphbs.create({
+  helpers: {
+    moment: function (date, options) {
+      const format = options.hash.format || "MMMM D, YYYY h:mm A";
+      return moment(date).format(format);
+    }
+  }
+});
+
+
 
 
 const sess = {

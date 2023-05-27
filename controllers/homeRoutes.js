@@ -2,6 +2,14 @@ const withAuth = require('../utils/auth');
 const router = require('express').Router();
 const { BlogPost, User, Comment } = require('../models');
 
+// The logging middleware
+const logRequest = (req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} to ${req.url}`);
+  next();
+};
+
+// Now use it in your routes
+router.use(logRequest);
 
 // GET login page
 router.get('/login', (req, res) => {
@@ -27,9 +35,11 @@ router.get('/', async (req, res) => {
     const blogPostData = await BlogPost.findAll({
       include: [{ model: User, attributes: ['email'] }],
     });
+    console.log(blogPostData);
     const blogPosts = blogPostData.map((blogPost) =>
       blogPost.get({ plain: true })
     );
+    console.log(blogPosts);
     res.render('home', { blogPosts, loggedIn: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
