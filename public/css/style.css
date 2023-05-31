@@ -3,13 +3,23 @@
 }
 
 .custom-brn {
-    background-color: #59340B;
+    background-color: #3F231C;
     font-size: 18px;
+    height: 15%;
   }
+
+.custom-text-color {
+  color: #3F231C;
+}
+
+#custom-card-border {
+    border-color: #3F231C;
+  }
+  
 
 .custom-teal {
     background-color: #F0FFDA ;
-    color: #59340B;
+    color: #3F231C;
 }
 
 .text-teal {
@@ -21,7 +31,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 70vh; /* Adjust the height if needed */
+    height: 70vh; 
   }
 
   .center-button {

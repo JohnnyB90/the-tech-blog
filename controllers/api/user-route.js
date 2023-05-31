@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await bcrypt.compare(req.body.password, userData.password);
+    const validPassword = await userData.checkPassword(req.body.password, userData.password);
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect email or password, please try again!' });
       return;
@@ -19,7 +19,7 @@ router.post('/login', async (req, res) => {
 
     req.session.save(() => {
       req.session.user_id = userData.id;
-      req.session.logged_in = true;
+      req.session.loggedIn = true;
       res.json({ user: userData, message: 'You are now logged in!' });
     });
   } catch (err) {
@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
       password: req.body.password,
     });
     req.session.user_id = userData.id;
-    req.session.logged_in = true;
+    req.session.loggedIn = true;
     req.session.save(() => {
 
       res.status(200).json(userData);
@@ -49,10 +49,9 @@ router.post('/signup', async (req, res) => {
 
 // LOGOUT a user
 router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     req.session.destroy(() => {
-      res.status(204).end();
-      res.redirect('/home');
+      res.status(204).redirect('/');
     });
   } else {
     res.status(404).end();
