@@ -1,25 +1,31 @@
-<div class="card m-5 custom-brn border-2" id="custom-card-border">
-  <div class="row no-gutters custom-brn">
-    <div class="col-lg-6">
-      <div class="card-body">
-        <h2 class="text-teal font-weight-bold">
-          <span class="ml-3">{{title}}</span>
-        </h2>
+<form class="blogpost-card" id="blogpost-card">
+  <div class="card m-5 custom-brn border-2 text-center" id="custom-card-border">
+    <div class="row no-gutters custom-brn">
+      <div class="col-lg-6">
+        <div class="card-body">
+          <h2 class="text-teal font-weight-bold">
+            <span class="ml-3">{{title}}</span>
+          </h2>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card-body d-flex justify-content-end align-items-center">
+          <p class="card-text text-muted mb-0 custom-text-color">
+            <small>Posted on {{moment createdAt format="MMMM D, YYYY h:mm A"}}</small>
+          </p>
+        </div>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="card-body d-flex justify-content-end align-items-center">
-        <p class="card-text text-muted mb-0 custom-text-color">
-          <small>Posted on {{moment createdAt format="MMMM D, YYYY h:mm A"}}</small>
-        </p>
+    <div class="card-body">
+      <p class="card-text custom-text-color">{{content}}</p>
+      <div class="card-body d-flex justify-content-between">
+        <a href="/blogpost/{{id}}" class="btn btn-primary">Read More &rarr;</a>
+        {{#if isDashboard}}
+        <button class="btn btn-primary delete-post-btn" type="submit" data-post-id="{{id}}">Delete</button>
+        {{/if}}
       </div>
     </div>
   </div>
-  <div class="card-body">
-    <p class="card-text custom-text-color">{{content}}</p>
-    <div class="card-body d-flex justify-content-between">
-      <a href="/blogpost/{{id}}" class="btn btn-primary">Read More &rarr;</a>
-      <button class="btn btn-primary delete-post-btn" type="submit">Delete</button>
-    </div>
-  </div>
-</div>
+</form>
+<script src="/js/deletepost.js"></script>
+

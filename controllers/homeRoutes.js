@@ -30,8 +30,8 @@ router.get('/logout', (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const blogPostData = await BlogPost.findAll({
-      include: [{ model: User, attributes: ['email'] }],
-    });
+      include: [{ model: User, as: 'user', attributes: ['email'] }],
+    });    
     const blogPosts = blogPostData.map((blogPost) =>
       blogPost.get({ plain: true })
     );
@@ -42,7 +42,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-
 // GET a single blog post by id
 router.get('/blogpost/:id', async (req, res) => {
   try {
@@ -50,7 +49,7 @@ router.get('/blogpost/:id', async (req, res) => {
       include: [
         {
           model: Comment,
-          include: [{ model: User, attributes: ['email'] }],
+          include: [{ model: User, as: 'user', attributes: ['email'] }],
         },
         { model: User, attributes: ['email'] },
       ],
@@ -81,7 +80,7 @@ router.get('/dashboard/new', withAuth, (req, res) => {
 router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
   try {
     const blogPostData = await BlogPost.findByPk(req.params.id, {
-      include: [{ model: User, attributes: ['email'] }],
+      include: [{ model: User, as: 'user', attributes: ['email'] }],
     });
 
     if (!blogPostData) {
@@ -99,22 +98,22 @@ router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
 
 // GET Dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
+  console.log(req.session);
   try {
     const blogPostData = await BlogPost.findAll({
+      include: [{ model: User, as: 'user', attributes: ['email'] }],
       where: {
         user_id: req.session.user_id,
       },
     });
-
     const blogPosts = blogPostData.map((blogPost) => blogPost.get({ plain: true }));
-
-    res.render('dashboard', {
-      blogPosts,
-      loggedIn: true
-    });
+    const isDashboard = true; // Define the isDashboard variable
+    res.render('dashboard', { blogPosts, isDashboard, loggedIn: true });
+    console.log(isDashboard); // Log the value of isDashboard
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 
 module.exports = router;

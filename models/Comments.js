@@ -2,7 +2,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const User = require('./User');
-const BlogPost = require('./Blogpost');
+const BlogPost = require('./BlogPost');
 
 class Comment extends Model {}
 
@@ -32,12 +32,10 @@ Comment.init(
     sequelize,
     timestamps: true,
     underscored: true,
-    modelName: 'comment',
+    modelName: 'Comments',
     freezeTableName: true
   }
 );
 
-Comment.belongsTo(User);
-Comment.belongsTo(BlogPost);
 
 module.exports = Comment;

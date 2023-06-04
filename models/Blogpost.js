@@ -1,10 +1,8 @@
-// models/blogpost.js
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const User = require('./User');
 
 class BlogPost extends Model {}
-
 BlogPost.init(
   {
     id: {
@@ -19,6 +17,13 @@ BlogPost.init(
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id',
+      },
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -35,12 +40,9 @@ BlogPost.init(
     sequelize,
     timestamps: true,
     underscored: true,
-    modelName: 'blogpost',
+    modelName: 'BlogPost',
     freezeTableName: true
   }
 );
-
-BlogPost.belongsTo(User);
-User.hasMany(BlogPost);
 
 module.exports = BlogPost;

@@ -8,14 +8,23 @@ router.post('/', withAuth, async (req, res) => {
     const newBlogPost = await BlogPost.create({
       title: req.body.title,
       content: req.body.content,
-      user_id: req.session.userId,
+      user_id: req.session.user_id,
     });
 
-    res.status(200).json(newBlogPost);
+    // Fetch the created blog post with the generated ID
+    const createdPost = await BlogPost.findOne({
+      where: {
+        id: newBlogPost.id,
+      },
+      include: [{ model: User, as: 'user', attributes: ['email'] }],
+    });
+
+    res.status(200).json(createdPost);
   } catch (err) {
     res.status(400).json(err);
   }
 });
+
 
 // UPDATE a blog post by id
 router.put('/:id', withAuth, async (req, res) => {

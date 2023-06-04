@@ -1,7 +1,7 @@
 // models/index.js
 const Sequelize = require('sequelize');
 const User = require('./User');
-const BlogPost = require('./Blogpost');
+const BlogPost = require('./BlogPost');
 const Comments = require('./Comments');
 
 const sequelize = new Sequelize('database', 'email', 'password', {
@@ -9,12 +9,13 @@ const sequelize = new Sequelize('database', 'email', 'password', {
   dialect: 'mysql',
 });
 
-User.hasMany(BlogPost);
-BlogPost.belongsTo(User);
+User.hasMany(BlogPost, { foreignKey: 'user_id', as: 'posts' });
+User.hasMany(Comments, { foreignKey: 'user_id', as: 'user_comments' });
+BlogPost.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+BlogPost.hasMany(Comments, { foreignKey: 'blogpost_id', as: 'post_comments' });
+Comments.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+Comments.belongsTo(BlogPost, { foreignKey: 'blogpost_id', as: 'post' });
 
-User.hasMany(Comments);
-Comments.belongsTo(User);
-BlogPost.hasMany(Comments);
-Comments.belongsTo(BlogPost);
+
 
 module.exports = { User, BlogPost, Comments, sequelize };
