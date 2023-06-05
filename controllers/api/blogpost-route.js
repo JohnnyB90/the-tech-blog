@@ -17,13 +17,11 @@ router.get('/:id/edit', withAuth, async (req, res) => {
       return;
     }
     const blogPost = blogPostData.get({ plain: true });
-    res.render('editpost', { blogPost });
+    res.render('editpost', { blogPost, loggedIn: req.session.loggedIn || false });
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
-
 
 // CREATE a new blog post
 router.post('/', withAuth, async (req, res) => {
