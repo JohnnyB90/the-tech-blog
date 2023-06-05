@@ -20,12 +20,14 @@
       <p class="card-text custom-text-color">{{content}}</p>
       <div class="card-body d-flex justify-content-between">
         <a href="/blogpost/{{id}}" class="btn btn-primary">Read More &rarr;</a>
-        {{#if isDashboard}}
-        <button class="btn btn-primary delete-post-btn" type="submit" data-post-id="{{id}}">Delete</button>
+         {{#if isDashboard}}
+        <button class="btn btn-primary edit-post-btn" type="button" data-post-id="{{id}}">Edit</button>
+        <button class="btn btn-primary delete-post-btn" type="button" data-post-id="{{id}}">Delete</button>
         {{/if}}
       </div>
     </div>
   </div>
 </form>
 <script src="/js/deletepost.js"></script>
+<script src="/js/editpost.js"></script>
 

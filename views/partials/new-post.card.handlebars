@@ -1,7 +1,10 @@
-<div class="card mt-5" style="margin-top: -100px;">
+<div class="card mt-5" style="margin-top: -100px;" class="card m-5 custom-brn border-2 text-center" id="custom-card-border">
   <div class="card-body text-center">
     <form id="newPostForm" action="/api/blogposts" method="post">
-      <div class="form-group">
+    <div class="row no-gutters custom-brn">
+      <h2 class="text-teal font-weight-bold mb-3 mt-3">Create a New Post</h2>
+    </div>
+      <div class="form-group mt-3">
         <label for="title">Title</label>
         <input type="text" id="title" name="title" class="form-control" required>
       </div>

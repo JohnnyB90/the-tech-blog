@@ -2,6 +2,29 @@ const router = require('express').Router();
 const { BlogPost, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+// GET blog post by id to edit
+router.get('/:id/edit', withAuth, async (req, res) => {
+  try {
+    console.log("Before findOne");
+    const blogPostData = await BlogPost.findOne({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    });
+    if (!blogPostData) {
+      res.status(404).json({ message: 'No blog post found with this id!' });
+      return;
+    }
+    const blogPost = blogPostData.get({ plain: true });
+    res.render('editpost', { blogPost });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+
 // CREATE a new blog post
 router.post('/', withAuth, async (req, res) => {
   try {
@@ -37,15 +60,22 @@ router.put('/:id', withAuth, async (req, res) => {
       {
         where: {
           id: req.params.id,
+          user_id: req.session.user_id,
         },
       }
     );
 
-    res.status(200).json(updatedBlogPost);
+    if (updatedBlogPost > 0) {
+      res.status(200).json({ message: 'Blog post updated successfully.' });
+    } else {
+      res.status(404).json({ message: 'No blog post found with this id owned by the current user.' });
+    }
   } catch (err) {
-    res.status(400).json(err);
-  }
+    res.status(500).json(err);
+}
+
 });
+
 
 // DELETE a blog post by id
 router.delete('/:id', withAuth, async (req, res) => {

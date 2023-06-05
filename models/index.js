@@ -1,4 +1,3 @@
-// models/index.js
 const Sequelize = require('sequelize');
 const User = require('./User');
 const BlogPost = require('./BlogPost');
