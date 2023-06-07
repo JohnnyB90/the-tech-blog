@@ -44,56 +44,47 @@ router.get('/', async (req, res) => {
 
 // GET a single blog post by id
 router.get('/blogpost/:id', async (req, res) => {
+  console.log("Inside blogpost route");
+  console.log("req.params.id: ", req.params.id);
   try {
     const blogPostData = await BlogPost.findByPk(req.params.id, {
       include: [
         {
-          model: Comment,
+          model: Comments,
+          as: 'post_comments',
           include: [{ model: User, as: 'user', attributes: ['email'] }],
         },
-        { model: User, attributes: ['email'] },
+        { 
+          model: User, 
+          as: 'user',
+          attributes: ['email'] 
+        },
       ],
     });
-
+    
+    
+    console.log(blogPostData);
     if (!blogPostData) {
       res.status(404).json({ message: 'No blog post found with this id!' });
       return;
     }
 
     const blogPost = blogPostData.get({ plain: true });
-
-    res.render('blogpost.card', {
+    console.log(blogPost);
+    res.render('single-post', {
       ...blogPost,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
+    console.log('Error: ', err);
     res.status(500).json(err);
   }
 });
+
 
 // GET create new blog post page
 router.get('/dashboard/new', withAuth, (req, res) => {
   res.render('new-post', { loggedIn: req.session.loggedIn });
-});
-
-// GET update blog post page
-router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
-  try {
-    const blogPostData = await BlogPost.findByPk(req.params.id, {
-      include: [{ model: User, as: 'user', attributes: ['email'] }],
-    });
-
-    if (!blogPostData) {
-      res.status(404).json({ message: 'No blog post found with this id!' });
-      return;
-    }
-
-    const blogPost = blogPostData.get({ plain: true });
-
-    res.render('edit-post', { ...blogPost, loggedIn: req.session.loggedIn });
-  } catch (err) {
-    res.status(500).json(err);
-  }
 });
 
 // GET Dashboard

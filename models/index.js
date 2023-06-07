@@ -9,12 +9,12 @@ const sequelize = new Sequelize('database', 'email', 'password', {
 });
 
 User.hasMany(BlogPost, { foreignKey: 'user_id', as: 'posts' });
-User.hasMany(Comments, { foreignKey: 'user_id', as: 'user_comments' });
 BlogPost.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
-BlogPost.hasMany(Comments, { foreignKey: 'blogpost_id', as: 'post_comments' });
+
+User.hasMany(Comments, { foreignKey: 'user_id', as: 'user_comments' });
 Comments.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+
+BlogPost.hasMany(Comments, { foreignKey: 'blogpost_id', as: 'post_comments' });
 Comments.belongsTo(BlogPost, { foreignKey: 'blogpost_id', as: 'post' });
-
-
 
 module.exports = { User, BlogPost, Comments, sequelize };

@@ -36,6 +36,13 @@ User.init(
         const hashedPassword = await bcrypt.hash(user.password, saltRounds);
         user.password = hashedPassword;
       },
+      beforeUpdate: async (user) => {
+        if (user.password) {
+          const saltRounds = 10;
+          const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+          user.password = hashedPassword;
+        }
+      },
     },
     sequelize,
     timestamps: false,

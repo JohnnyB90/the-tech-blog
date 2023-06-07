@@ -4,7 +4,14 @@
     {{#each blogPosts as |post|}}
       <div class="col-lg-12">
         <div class="card-body">
-          {{> blogpost.card post}}     
+          {{> blogpost.card post}}
+          {{#if loggedIn}}
+          <form action="/comments/newcomment" method="POST">
+            <input type="hidden" name="blogPost_id" value="{{post.id}}">
+            <textarea name="content" placeholder="Leave a comment"></textarea>
+            <input type="submit" value="Submit">
+          </form>
+          {{/if}}
         </div>
       </div>
     {{/each}}

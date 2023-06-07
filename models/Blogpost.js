@@ -21,10 +21,10 @@ BlogPost.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'User',
+        model: 'users',
         key: 'id',
       },
-    },
+    },    
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

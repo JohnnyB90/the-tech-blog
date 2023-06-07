@@ -26,15 +26,29 @@ Comment.init(
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    blogpost_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'blogpost',
+        key: 'id',
+      },
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id',
+      },
+    },
+    
   },
   {
     sequelize,
     timestamps: true,
     underscored: true,
     modelName: 'Comments',
-    freezeTableName: true
+    freezeTableName: true,
   }
 );
-
 
 module.exports = Comment;
