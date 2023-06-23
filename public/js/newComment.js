@@ -5,15 +5,34 @@ const commentText = document.querySelector('#comment-text');
 commentForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  // get the value from the textarea
-  const content = commentText.value;
+// get the value from the textarea
+const content = commentText.value;
 
-  // send a POST request to your '/newcomment' endpoint
-  const response = await fetch('/newcomment', {
-    method: 'POST',
-    body: JSON.stringify({ content, blogPost_id: blogPostId }),
-    headers: { 'Content-Type': 'application/json' },
-  });
+// get the ID of the blog post from the URL
+const path = window.location.pathname;
+console.log('path:', path);
+const parts = path.split('/');
+console.log('parts:', parts);
+const blogPost_id = parts[parts.length - 1];
+console.log('blogpost_id:', blogPost_id);
+
+// send a POST request to '/api/comments/newcomment' endpoint
+const response = await fetch('/api/comments/newcomment', {
+  method: 'POST',
+  body: JSON.stringify({ content, blogPost_id }),
+  headers: { 'Content-Type': 'application/json' },
+});
+
+console.log('Response:', response);
+
+if (response.ok) {
+  console.log('Comment posted successfully');
+} else {
+  console.log('Failed to post comment');
+}
+
+
+  
   
   // clear the textarea
   commentText.value = '';

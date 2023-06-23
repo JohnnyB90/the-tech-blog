@@ -29,7 +29,7 @@ Comment.init(
     blogpost_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'blogpost',
+        model: 'BlogPost',
         key: 'id',
       },
     },
@@ -46,7 +46,7 @@ Comment.init(
     sequelize,
     timestamps: true,
     underscored: true,
-    modelName: 'Comments',
+    modelName: 'Comment',
     freezeTableName: true,
   }
 );

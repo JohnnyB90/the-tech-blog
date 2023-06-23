@@ -1,31 +1,32 @@
 const router = require('express').Router();
-const { Comment } = require('../../models');
+const { Comments } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // CREATE a new comment
 router.post('/newcomment', withAuth, async (req, res) => {
-  console.log("new comment");
+  console.log('req.body:', req.body);
+  console.log('req.body.blogPost_id:', req.body.blogPost_id);
+
   try {
-    const newComment = await Comment.create({
+    const newComment = await Comments.create({
       content: req.body.content,
       user_id: req.session.user_id,
-      blogPost_id: req.body.blogPost_id
+      blogpost_id: req.body.blogPost_id
     });
     res.render('single-post', {
-      ...blogPost,
+      comment: newComment,
       loggedIn: req.session.loggedIn,
-      blogPost_id: blogPost.id,
-    });    
-    res.status(200).json(newComment);
+    });  
   } catch (err) {
     res.status(400).json(err);
+    console.log('Error:', err);
   }
 });
 
 // UPDATE a comment by id
 router.put('/:id', withAuth, async (req, res) => {
   try {
-    const updatedComment = await Comment.update(req.body, {
+    const updatedComment = await Comments.update(req.body, {
       where: {
         id: req.params.id,
         user_id: req.session.user_id,
@@ -46,7 +47,7 @@ router.put('/:id', withAuth, async (req, res) => {
 // DELETE a comment by id
 router.delete('/:id', withAuth, async (req, res) => {
   try {
-    const commentData = await Comment.destroy({
+    const commentData = await Comments.destroy({
       where: {
         id: req.params.id,
         user_id: req.session.user_id,
