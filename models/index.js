@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const User = require('./User');
-const BlogPost = require('./BlogPost');
+const BlogPost = require('./Blogpost');
 const Comments = require('./Comments');
 
 const sequelize = new Sequelize('database', 'email', 'password', {
