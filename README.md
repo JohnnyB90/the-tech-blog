@@ -25,7 +25,7 @@ A website to create blogposts about technologies. Other users can then comment o
 
 ## Installation
 
-There is no installation for this to work, just visit the site @ 
+There is no installation for this to work, just visit the site @ https://johnnyb90.github.io/the-tech-blog/
 
 ## Usage
 
