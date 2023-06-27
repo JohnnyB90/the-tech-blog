@@ -17,6 +17,7 @@ Johnny Bonee
 # Project Name
 
 The-Tech-Blog
+![image](https://github.com/JohnnyB90/the-tech-blog/assets/117334322/294cadf8-8dd0-40f2-baf3-89a909b07fde)
 
 ## Description
 
